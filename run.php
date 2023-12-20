@@ -1,8 +1,7 @@
 <?php
 
-function abc($countyCode) {
+function getVatRate($countyCode) {
     $client = new SoapClient('https://ec.europa.eu/taxation_customs/tedb/ws/VatRetrievalService.wsdl');
-
 
     $req = [
         'memberStates' => [$countyCode],
@@ -10,11 +9,7 @@ function abc($countyCode) {
         'cpaCodes' => ['47'],
     ];
 
-    // die(json_encode($client->retrieveVatRates($req)));
-
     $vatRateResults = $client->retrieveVatRates($req)->vatRateResults;
-
-    // var_dump($vatRateResults);die();
 
     if (!is_array($vatRateResults)) $vatRateResults = [ $vatRateResults ];
 
@@ -23,7 +18,4 @@ function abc($countyCode) {
     }
 
     return null;
-}
-
-
-var_dump(abc('IT'));  
+} 
